@@ -2,12 +2,13 @@
 
 ## Table of Contents
 1. [Problem Definition](#1-problem-definition)
-2. [Data Preprocessing and EDA](#2-data-preprocessing-and-eda)
+2. [Data Preprocessing and Exploratory Data Analysis](#2-data-preprocessing-and-exploratory-data-analysis)
 3. [Modelling and Hyperparameter Tuning](#3-modelling-and-hyperparameter-tuning)
-4. [Final Model Evaluation](#4-final-model-evaluation)
-5. [Feature Importance Analysis & Model Interpretability](#5-feature-importance-analysis--model-interpretability)
+4. [Final Model Evaluation and Comparison](#4-final-model-evaluation-and-comparison)
+5. [Feature Importance Analysis and Model Interpretability](#5-feature-importance-analysis-and-model-interpretability)
 6. [Conclusion](#6-conclusion)
 7. [Acknowledgements](#7-acknowledgements)
+
 
 ---
 ## 1. Problem Definition
@@ -30,7 +31,7 @@ The dataset is derived from the **Cleveland Heart Disease Database** hosted on t
 
 ---
 
-## 2. Data Preprocessing and EDA
+## 2. Data Preprocessing and Exploratory Data Analysis
 
 ### 2.1 Data Dictionary
 
@@ -55,28 +56,26 @@ The dataset contains 13 clinical diagnostic features and 1 binary target variabl
 
 > **Privacy Note:** No Personally Identifiable Information (PII) is present in this dataset.
 
----
-
 ### 2.2 Exploratory Data Analysis (EDA) Summary
 
 #### 1\. Target Variable Distribution
 
 <p align="center">
-  <img src="plots/EDA/01_EDA_target_value_distribution.png" width="400">
+  <img src="plots/EDA/01_EDA_target_value_distribution.png" width="80%">
 </p>
 
--   **Balance Assessment:** The target variable is well-balanced (~54% positive, ~46% negative), showing no significant class imbalance. Consequently, no complex re-sampling techniques (e.g., SMOTE, oversampling/undersampling) are required prior to model training.
+-   **Balance Assessment:** The target variable is well-balanced (~54% positive, ~46% negative), showing no significant class imbalance. Consequently, no complex re-sampling techniques are required prior to model training.
 
 #### 2\. Key Demographic & Physiological Insights
 
 <p align="center">
-  <img src="plots/EDA/02_EDA_heart_disease_vs_sex.png" width="400">
+  <img src="plots/EDA/02_EDA_heart_disease_vs_sex.png" width="80%">
 </p>
 
 -   **Gender Disparity:** A prominent gender-based correlation was identified. Female patients exhibit a **~75% probability** of heart disease within this sample, whereas the probability for male patients is approximately **48%**, indicating that `sex` is a strong predictive feature.
 
 <p align="center">
-  <img src="plots/EDA/03_EDA_heart_disease_vs_age_and_max_heart_rate.png" width="400">
+  <img src="plots/EDA/03_EDA_heart_disease_vs_age_and_max_heart_rate.png" width="80%">
 </p>
 
 -   **Age vs. Maximum Heart Rate (`thalach`):** A clear negative correlation exists between age and maximum heart rate. Intriguingly, a higher prevalence of heart disease was observed within the younger patient cohort in this dataset, warranting further domain evaluation into potential environmental or lifestyle triggers.
@@ -84,7 +83,7 @@ The dataset contains 13 clinical diagnostic features and 1 binary target variabl
 #### 3\. Clinical Data Anomalies
 
 <p align="center">
-  <img src="plots/EDA/04_EDA_heart_disease_vs_chest_pain_type.png" width="400">
+  <img src="plots/EDA/04_EDA_heart_disease_vs_chest_pain_type.png" width=width="80%">
 </p>
 
 -   **Chest Pain (`cp`) Paradox:** A counter-intuitive pattern emerged during feature analysis. While Type 1 chest pain (_atypical angina_) is clinically defined as "not directly related to heart disease," the dataset reveals a high probability of heart disease within this specific subgroup, highlighting potential recording bias or domain nuances.
@@ -92,7 +91,7 @@ The dataset contains 13 clinical diagnostic features and 1 binary target variabl
 #### 4\. Correlation Analysis
 
 <p align="center">
-  <img src="plots/EDA/05_EDA_correlation_heatmap.png" width="400">
+  <img src="plots/EDA/05_EDA_correlation_heatmap.png" width=width="80%">
 </p>
 
 -   **Feature Independence:** The correlation heatmap demonstrates low overall multicollinearity across features. The absence of heavily redundant, collinear predictors preserves model interpretability and improves optimization during feature selection.
@@ -101,9 +100,7 @@ The dataset contains 13 clinical diagnostic features and 1 binary target variabl
 
 ## 3. Modelling and Hyperparameter Tuning
 
-To identify the optimal classifier for heart disease prediction, four distinct machine learning algorithms were trained and evaluated using **GridSearchCV / RandomizedSearchCV** with 5-fold cross-validation. Hyperparameter tuning was performed on each algorithm to optimize the F1-Score, striking an ideal balance between overall accuracy and Recall to minimize false negatives.
-
----
+To identify the optimal classifier for heart disease prediction, four distinct machine learning algorithms were trained and evaluated using **GridSearchCV / RandomizedSearchCV** with 5-fold cross-validation. Hyperparameter tuning was performed on each algorithm to optimize the F1-Score, striking a balance between overall accuracy and Recall to minimize false negatives.
 
 ### 3.1 K-Nearest Neighbors (KNN)
 * **Tuning Strategy:** Evaluated various values of $K$ (number of neighbors) alongside different distance metrics (Euclidean vs. Manhattan).
@@ -115,10 +112,8 @@ To identify the optimal classifier for heart disease prediction, four distinct m
 
 * **Best Parameters:** `n_neighbors = [5]`, `weights = '[uniform]'`, `p = [1]`
 
----
-
 ### 3.2 Support Vector Machine (SVM)
-* **Tuning Strategy:** Focused on the **Radial Basis Function (RBF) kernel**, systematically tuning the regularization parameter ($C$) and kernel coefficient ($\gamma$).
+* **Tuning Strategy:** Focused on the **Radial Basis Function (RBF) kernel** and **linear kernel**, systematically tuning the regularization parameter ($C$) and kernel coefficient ($\gamma$).
 * **Optimization Results:**
 
 <p align="center">
@@ -126,8 +121,6 @@ To identify the optimal classifier for heart disease prediction, four distinct m
 </p>
 
 * **Best Parameters:** `C = [10]`, `gamma = '[0.01]'`, `kernel = 'rbf'`
-
----
 
 ### 3.3 Logistic Regression
 * **Tuning Strategy:** Adjusted the inverse regularization strength ($C$) and evaluated different solvers (`liblinear`, `lbfgs`) using both $L_1$ and $L_2$ penalties.
@@ -139,7 +132,6 @@ To identify the optimal classifier for heart disease prediction, four distinct m
 
 * **Best Parameters:** `C = [0.004832930238571752]`, `solver = '[lbfgs]'`
 
----
 
 ### 3.4 Random Forest Classifier
 * **Tuning Strategy:** Explored the tree-based search space by varying `n_estimators`, `max_depth`, `min_samples_split`, and `min_samples_leaf` to prevent overfitting.
@@ -151,7 +143,6 @@ To identify the optimal classifier for heart disease prediction, four distinct m
 
 * **Best Parameters:** `n_estimators = [960]`, `max_depth = [3]`, `min_samples_split = [4]`, `min_samples_leaf = [13]`
 
----
 
 ### 3.5 Hyperparameter Tuning Summary & Model Comparison
 
@@ -175,15 +166,14 @@ After tuning each candidate model, we aggregated their performance across cross-
 | **Logistic Regression** | `C = [0.004832930238571752]`, `solver = '[lbfgs]'` | [84.19%] | **[90.62%]** | **[87.88%]** |
 | **Random Forest** | `n_estimators = [960]`, `max_depth = [3]`, `min_samples_split = [4]`, `min_samples_leaf = [13]` | [84.18%] | **[90.62%]** | **[87.88%]** |
 
-* **Selection Decision:** Based on the overall performance comparison above, **Logistic Regression** was chosen as the champion model. It achieved the optimal balance between high overall accuracy and maximum **Recall**, ensuring robust sensitivity in clinical prediction.
+* **Selection Decision:** Based on the overall performance comparison above, **Logistic Regression** was chosen as the best model. It achieved superior **Recall (90.62%)** and **F1-Score (87.88%)**, zero overfitting risk, and the model itself has excellent interpretability. 
 
 ---
 
-## 4. Final Model Evaluation
+## 4. Final Model Evaluation and Comparison
 
 Having selected **Logistic Regression** as the champion model during hyperparameter tuning, this section presents a comprehensive evaluation of its performance on the unseen **Test Set**. The focus is placed on diagnostic reliability, class discrimination capability, and clinical safety.
 
----
 
 ### 4.1 Diagnostic Safety & Error Analysis (Confusion Matrix)
 
@@ -201,8 +191,6 @@ To evaluate the clinical risk associated with incorrect predictions, we analyzed
 
 * **Clinical Impact:** In medical screening, **False Negatives** carry significantly higher consequences than False Positives. As shown in the matrix, the model achieved a remarkably low False Negative rate, correctly identifying **90.62%** of high-risk individuals. This ensures that vulnerable patients receive timely clinical intervention with minimal risk of false reassurance.
 
----
-
 ### 4.2 Threshold Discrimination & Robustness (ROC-AUC Analysis)
 
 We plotted the **Receiver Operating Characteristic (ROC)** curves across all candidate models to evaluate their capability to separate positive and negative classes across varying decision thresholds.
@@ -217,22 +205,20 @@ We plotted the **Receiver Operating Characteristic (ROC)** curves across all can
   * More importantly, Logistic Regression was selected because it outperformed the higher-AUC models in key clinical priorities: it achieved superior **Recall (90.62%)**, a balanced **F1-Score**, zero overfitting risk, and complete **Model Interpretability** via feature coefficients—making it the safest and most transparent choice for medical deployment.
   * The steep early rise of the curve confirms high Sensitivity (Recall) even at strict specificity levels, ensuring the model remains highly adaptable if clinical decision thresholds need to be adjusted.
 
----
 
 ### 4.3 Generalization & Overfitting Check
 
 To guarantee that the selected model generalizes well to real-world, unseen patient data, we conducted a side-by-side verification of training versus testing metrics.
 
-* **Zero Overfitting:** Unlike complex non-linear models (e.g., KNN/SVM) which exhibited performance gaps between training cross-validation and testing, Logistic Regression demonstrated virtually identical performance across both sets ($\text{CV Score} \approx \text{Test Score} = 86.89\%$).
+* **Zero Overfitting:** Unlike complex non-linear models (e.g., KNN/SVM) which exhibited performance gaps between training cross-validation and testing, Logistic Regression performs much better in the test set, even outperforming the Random Forest Classifier.
+
 * **Conclusion:** The evaluation confirms that **Logistic Regression** is not only accurate and sensitive to high-risk cases, but also immune to overfitting, making it the most robust choice for clinical deployment.
 
 ---
 
-## 5. Feature Importance Analysis & Model Interpretability
+## 5. Feature Importance Analysis and Model Interpretability
 
 Beyond predictive accuracy, clinical safety requires **model interpretability**—ensuring that the model's predictions align with established cardiovascular domain knowledge. This section examines key diagnostic predictors across both linear (Logistic Regression) and tree-based (Random Forest) models, complemented by a decision tree structure visualization.
-
----
 
 ### 5.1 Primary Risk Factors Comparison
 
@@ -257,7 +243,6 @@ Both models consistently identify the same top diagnostic features as primary pr
 5. **`sex` (Gender Factor):**
    * Shows a noticeable negative coefficient in Logistic Regression (and moderate importance in Random Forest), aligning with clinical statistics where male demographic profiles exhibit different baseline risk distributions.
 
----
 
 ### 5.2 Tree Decision Logic Visualization
 
@@ -278,7 +263,7 @@ To visualize how these top features interact to form concrete decision boundarie
 This project successfully developed an end-to-end Machine Learning pipeline to predict heart disease risk using clinical patient attributes. Through systematic pre-processing, extensive Exploratory Data Analysis (EDA), and rigorous hyperparameter tuning, we evaluated four distinct classification algorithms.
 
 ### 6.1 Summary of Key Findings:
-1. **Champion Model Selection:** **Logistic Regression** emerged as the optimal champion model for clinical deployment. While it demonstrated a slightly lower AUC (0.92) compared to SVM/Random Forest (0.93–0.94), it achieved superior performance in critical clinical priorities—delivering a top-tier **Recall (90.62%)** and a balanced **F1-Score**, with zero overfitting gap between training CV and test sets.
+1. **Champion Model Selection:** **Logistic Regression** emerged as the optimal model for clinical deployment. While it demonstrated a slightly lower AUC (0.92) compared to SVM/Random Forest (0.93–0.94), it achieved superior performance in critical clinical priorities—delivering a top-tier **Recall (90.62%)** and a balanced **F1-Score**, with no evidence of overfitting.
 2. **Clinical Risk Mitigation:** By prioritizing Recall during final metrics assessment, the pipeline successfully minimized **False Negatives**, ensuring high-risk heart disease patients are accurately identified for early medical intervention.
 3. **Domain Alignment & Interpretability:** Feature importance analysis across linear and tree-based models validated that **`ca`** (vessel count), **`cp`** (chest pain type), **`oldpeak`** (ST depression), **`thal`** (stress test defect), **`exang`** (angina), and **`sex`** serve as the primary risk predictors. These statistical insights closely align with established medical literature, providing high diagnostic transparency.
 
@@ -291,5 +276,14 @@ This project successfully developed an end-to-end Machine Learning pipeline to p
 ## 7. Acknowledgements
 
 * **Data Source:** Special thanks to the **UCI Machine Learning Repository** for providing the classic [Heart Disease Dataset](https://archive.ics.uci.edu/ml/datasets/heart+disease) (specifically the Cleveland database collected by Robert Detrano, M.D., Ph.D.).
-* **Educational Course:** Inspired by and referenced from the **[Complete Machine Learning & Data Science Bootcamp: Zero to Mastery](https://zerotomastery.io/)** course by Andrei Neagoie and Daniel Bourke.
-* **Open-Source Tools:** Built using the Python Data Science stack, including [Scikit-Learn](https://scikit-learn.org/), [Pandas](https://pandas.pydata.org/), [NumPy](https://numpy.org/), [Matplotlib](https://matplotlib.org/), and [Seaborn](https://seaborn.pydata.org/).
+
+* **Inspiration & Base Concepts:** Inspired by the foundational workflow from the [Zero to Mastery Machine Learning Course](https://github.com/mrdbourke/zero-to-mastery-ml).
+
+### Key Improvements & Technical Enhancements
+This project goes significantly beyond the baseline course material through full end-to-end refactoring and expansion:
+
+* **End-to-End Pipeline Architecture:** Fully rewritten the training and preprocessing workflows using Scikit-Learn `Pipeline` and standardized feature scaling (`StandardScaler`) to prevent data leakage.
+* **Expanded Model Benchmarking:** Integrated Support Vector Classifier (SVC/SVM) into the algorithm evaluation matrix alongside baseline models.
+* **Advanced Visualizations & Interpretation:** Redesigned EDA visual formats, cross-validation metrics, and comprehensive feature importance analysis for enhanced model interpretability.
+* **Refactored Model Evaluation:** Overhauled performance tracking with systematic confusion matrices, ROC-AUC comparisons, and structured hyperparameter tuning outputs.
+* **Interactive Web Deployment:** Developed and deployed a dynamic, multi-page prediction dashboard using **Streamlit**.

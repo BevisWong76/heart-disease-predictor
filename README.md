@@ -31,7 +31,7 @@ This project provides an end-to-end Machine Learning solution to predict the pre
 
 ## Key Results
 
-### Model Performance Comparison
+### 1. Model Performance Comparison
 
 We evaluated the tuned candidate models on the unseen test set across multiple metrics to diagnose generalization and threshold performance.
 
@@ -42,9 +42,7 @@ We evaluated the tuned candidate models on the unseen test set across multiple m
 
 * **Model Generalization:** **Logistic Regression** and **Random Forest** demonstrated superior generalization on the unseen test set compared to **KNN** and **SVM**, which showed signs of slight overfitting during training.
 
----
-
-### Champion Model Deep-Dive (Logistic Regression)
+### 2. Champion Model Deep-Dive (Logistic Regression)
 
 | Discrimination Power (ROC Curve) | Diagnostic Reliability (Confusion Matrix) |
 | :---: | :---: |
@@ -53,9 +51,7 @@ We evaluated the tuned candidate models on the unseen test set across multiple m
 
 * **Clinical Metric Alignment:** **Logistic Regression** achieved the optimal balance, delivering the highest **Recall** and **F1-Score**. This minimizes False Negatives—ensuring high-risk heart disease patients are correctly identified for timely medical intervention.
 
----
-
-### Feature Importance & Model Interpretability
+### 3. Feature Importance & Model Interpretability
 
 | Linear Model Risk Factors (LogReg) | Tree-Based Risk Factors (Random Forest) |
 | :---: | :---: |
@@ -93,7 +89,7 @@ heart-disease-predictor/
 The execution pipeline automatically generates and manages the following runtime directories:
 
 ```text
-├── models/                             # Stores trained model files (.pkl)
+├── models/                             # Stores trained model files
 └── plots/                              # Generated visualizations
     ├── EDA/                            # Exploratory Data Analysis plots
     ├── Model_Selection/                # CV scores & hyperparameter tuning
@@ -112,8 +108,6 @@ cd heart-disease-predictor
 ```
 
 You can then set up the project locally using either the standard Python `venv` or the ultra-fast `uv` package manager.
-
----
 
 ### Option 1: Using Standard Python `venv` (Traditional)
 
@@ -139,8 +133,6 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-
----
 
 ### Option 2: Using `uv` (Recommended for Speed)
 
@@ -175,18 +167,25 @@ uv pip install --upgrade pip
 uv pip install -r requirements.txt
 ```
 
+### Run the Streamlit App
+
+Once the dependencies are installed and the model artifacts are generated, launch the interactive web application:
+
+```bash
+streamlit run app.py
+```
+
 ---
 
 ## Acknowledgements
 
 * **Dataset:** Cleveland Heart Disease Dataset from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Heart+Disease).
-* **Inspiration & Base Concepts:** Inspired by the foundational workflow from the [Zero to Mastery Machine Learning Course](https://github.com/mrdbourke/zero-to-mastery-ml).
 
-### Key Improvements & Technical Enhancements
-This project goes significantly beyond the baseline course material through full end-to-end refactoring and expansion:
+* **Inspiration:** Built upon foundational concepts from the [Zero to Mastery Machine Learning Course](https://github.com/mrdbourke/zero-to-mastery-ml).
 
-* **End-to-End Pipeline Architecture:** Fully rewritten the training and preprocessing workflows using Scikit-Learn `Pipeline` and standardized feature scaling (`StandardScaler`) to prevent data leakage.
-* **Expanded Model Benchmarking:** Integrated Support Vector Classifier (SVC/SVM) into the algorithm evaluation matrix alongside baseline models.
-* **Advanced Visualizations & Interpretation:** Redesigned EDA visual formats, cross-validation metrics, and comprehensive feature importance analysis for enhanced model interpretability.
-* **Refactored Model Evaluation:** Overhauled performance tracking with systematic confusion matrices, ROC-AUC comparisons, and structured hyperparameter tuning outputs.
-* **Interactive Web Deployment:** Developed and deployed a dynamic, multi-page prediction dashboard using **Streamlit**.
+
+## Key Enhancements Beyond Baseline
+* **Robust Pipeline Architecture:** End-to-end `Pipeline` workflows preventing data leakage and standardizing feature transformations.
+* **Advanced Benchmarking & Tuning:** Comprehensive evaluation and hyperparameter tuning across 4 models.
+* **Model Interpretability:** Deep-dive analysis on feature importance and model interpretability.
+* **Interactive Web App:** Production-ready prediction dashboard deployed via **Streamlit**.
