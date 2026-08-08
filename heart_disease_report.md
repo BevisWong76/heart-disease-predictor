@@ -107,7 +107,7 @@ To identify the optimal classifier for heart disease prediction, four distinct m
 * **Optimization Results:**
 
 <p align="center">
-  <img src="plots/Model_Selection/01_knn_hyperparameter_tuning.png" alt="KNN Hyperparameter Tuning Plot showing cross-validation score across different K values" width="80%"/>
+  <img src="plots/Tuning/01_knn_hyperparameter_tuning.png" alt="KNN Hyperparameter Tuning Plot showing cross-validation score across different K values" width="80%"/>
 </p>
 
 * **Best Parameters:** `n_neighbors = [5]`, `weights = '[uniform]'`, `p = [1]`
@@ -117,7 +117,7 @@ To identify the optimal classifier for heart disease prediction, four distinct m
 * **Optimization Results:**
 
 <p align="center">
-  <img src="plots/Model_Selection/02_svm_hyperparameter_tuning_rbf_kernel.png" alt="SVM Hyperparameter Tuning Plot with RBF kernel showing C and gamma score surface" width="80%"/>
+  <img src="plots/Tuning/02_svm_hyperparameter_tuning_rbf_kernel.png" alt="SVM Hyperparameter Tuning Plot with RBF kernel showing C and gamma score surface" width="80%"/>
 </p>
 
 * **Best Parameters:** `C = [10]`, `gamma = '[0.01]'`, `kernel = 'rbf'`
@@ -127,7 +127,7 @@ To identify the optimal classifier for heart disease prediction, four distinct m
 * **Optimization Results:**
 
 <p align="center">
-  <img src="plots/Model_Selection/03_log_reg_hyperparameter_tuning.png" alt="Logistic Regression Hyperparameter Tuning Plot across C regularization values" width="80%"/>
+  <img src="plots/Tuning/03_log_reg_hyperparameter_tuning.png" alt="Logistic Regression Hyperparameter Tuning Plot across C regularization values" width="80%"/>
 </p>
 
 * **Best Parameters:** `C = [0.004832930238571752]`, `solver = '[lbfgs]'`
@@ -138,7 +138,7 @@ To identify the optimal classifier for heart disease prediction, four distinct m
 * **Optimization Results:**
 
 <p align="center">
-  <img src="plots/Model_Selection/04_rf_hyperparameter_tuning.png" alt="Random Forest Hyperparameter Tuning Plot comparing tree depths and estimators" width="80%"/>
+  <img src="plots/Tuning/04_rf_hyperparameter_tuning.png" alt="Random Forest Hyperparameter Tuning Plot comparing tree depths and estimators" width="80%"/>
 </p>
 
 * **Best Parameters:** `n_estimators = [960]`, `max_depth = [3]`, `min_samples_split = [4]`, `min_samples_leaf = [13]`
@@ -149,11 +149,11 @@ To identify the optimal classifier for heart disease prediction, four distinct m
 After tuning each candidate model, we aggregated their performance across cross-validation folds to make a direct comparison.
 
 <p align="center">
-  <img src="plots/Model_Selection/05_precision_recall_f1_comparison.png" alt="Final Model Comparison Bar Chart showing Precision, Recall, and F1-score across all four tuned models" width="85%"/>
+  <img src="plots/Evaluation/01_precision_recall_f1_comparison.png" alt="Final Model Comparison Bar Chart showing Precision, Recall, and F1-score across all four tuned models" width="85%"/>
 </p>
 
 <p align="center">
-  <img src="plots/Evaluation/01_accuracy_comparison.png" alt="Final Model Comparison Bar Chart showing Accuracy in training set and test set across all four tuned models" width="85%"/>
+  <img src="plots/Evaluation/02_accuracy_comparison.png" alt="Final Model Comparison Bar Chart showing Accuracy in training set and test set across all four tuned models" width="85%"/>
 </p>
 
 
@@ -180,7 +180,7 @@ Having selected **Logistic Regression** as the champion model during hyperparame
 To evaluate the clinical risk associated with incorrect predictions, we analyzed the confusion matrix of the tuned Logistic Regression model on the test dataset.
 
 <p align="center">
-  <img src="plots/Evaluation/03_confusion_matrix_detailed.png" alt="Confusion Matrix of Logistic Regression" width="65%"/>
+  <img src="plots/Evaluation/04_confusion_matrix_detailed.png" alt="Confusion Matrix of Logistic Regression" width="65%"/>
 </p>
 
 * **Confusion Matrix Breakdown:**
@@ -196,7 +196,7 @@ To evaluate the clinical risk associated with incorrect predictions, we analyzed
 We plotted the **Receiver Operating Characteristic (ROC)** curves across all candidate models to evaluate their capability to separate positive and negative classes across varying decision thresholds.
 
 <p align="center">
-  <img src="plots/Evaluation/02_roc_curves_comparison.png" alt="ROC Curve Comparison across models" width="80%"/>
+  <img src="plots/Evaluation/03_roc_curves_comparison.png" alt="ROC Curve Comparison across models" width="80%"/>
 </p>
 
 * **Performance Analysis & Metric Trade-off:**

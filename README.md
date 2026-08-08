@@ -37,7 +37,7 @@ We evaluated the tuned candidate models on the unseen test set across multiple m
 
 | Performance Metrics Benchmark | Generalization (Train vs. Test) |
 | :---: | :---: |
-| <img src="plots/Model_Selection/05_precision_recall_f1_comparison.png" alt="Precision Recall F1 Comparison" width="100%"/> | <img src="plots/Evaluation/01_accuracy_comparison.png" alt="Accuracy Comparison" width="100%"/> |
+| <img src="plots/Evaluation/01_precision_recall_f1_comparison.png" alt="Precision Recall F1 Comparison" width="100%"/> | <img src="plots/Evaluation/02_accuracy_comparison.png" alt="Accuracy Comparison" width="100%"/> |
 | **Figure 1:** Precision, Recall, and F1-Score trade-off. | **Figure 2:** Overfitting check across models. |
 
 * **Model Generalization:** **Logistic Regression** and **Random Forest** demonstrated superior generalization on the unseen test set compared to **KNN** and **SVM**, which showed signs of slight overfitting during training.
@@ -46,7 +46,7 @@ We evaluated the tuned candidate models on the unseen test set across multiple m
 
 | Discrimination Power (ROC Curve) | Diagnostic Reliability (Confusion Matrix) |
 | :---: | :---: |
-| <img src="plots/Evaluation/02_roc_curves_comparison.png" alt="ROC AUC Curve Comparison" width="100%"/> | <img src="plots/Evaluation/03_confusion_matrix_detailed.png" alt="Confusion Matrix of LogReg" width="100%"/> |
+| <img src="plots/Evaluation/03_roc_curves_comparison.png" alt="ROC AUC Curve Comparison" width="100%"/> | <img src="plots/Evaluation/04_confusion_matrix_detailed.png" alt="Confusion Matrix of LogReg" width="100%"/> |
 | **Figure 3:** ROC-AUC threshold performance. | **Figure 4:** Low False Negative rate in clinical diagnosis. |
 
 * **Clinical Metric Alignment:** **Logistic Regression** achieved the optimal balance, delivering the highest **Recall** and **F1-Score**. This minimizes False Negatives—ensuring high-risk heart disease patients are correctly identified for timely medical intervention.
@@ -92,8 +92,8 @@ The execution pipeline automatically generates and manages the following runtime
 ├── models/                             # Stores trained model files
 └── plots/                              # Generated visualizations
     ├── EDA/                            # Exploratory Data Analysis plots
-    ├── Model_Selection/                # CV scores & hyperparameter tuning
-    ├── Evaluation/                     # ROC curves & Confusion Matrix
+    ├── Tuning/                         # Hyperparameter tuning
+    ├── Evaluation/                     # Evaluation metrics
     └── Features/                       # Feature importance visualizations
 ```
 
