@@ -77,7 +77,7 @@ We evaluated the tuned candidate models on the unseen test set across multiple m
 ```text
 heart-disease-predictor/
 ├── assets/
-│   └── demo.gif                        # Demonstration GIF for README
+│   └── Demo.gif                        # Demonstration GIF for README
 ├── heart-disease.csv                   # Clinical dataset
 ├── heart_disease_classification.ipynb  # Complete Machine Learning pipeline
 ├── heart_disease_report.md             # Comprehensive technical report
@@ -161,7 +161,7 @@ uv venv
 source .venv/bin/activate
 ```
 
- 4. Install dependencies:
+4. Install dependencies:
 ```bash
 uv pip install --upgrade pip
 uv pip install -r requirements.txt
@@ -184,7 +184,7 @@ streamlit run app.py
 * **Inspiration:** Built upon foundational concepts from the [Zero to Mastery Machine Learning Course](https://github.com/mrdbourke/zero-to-mastery-ml).
 
 
-## Key Enhancements Beyond Baseline
+### Key Enhancements Beyond Baseline
 * **Robust Pipeline Architecture:** End-to-end `Pipeline` workflows preventing data leakage and standardizing feature transformations.
 * **Advanced Benchmarking & Tuning:** Comprehensive evaluation and hyperparameter tuning across 4 models.
 * **Model Interpretability:** Deep-dive analysis on feature importance and model interpretability.
